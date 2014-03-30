@@ -1,0 +1,32 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.username">paul</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost/jokes</property>
+
+        <property name="connection_pool_size">1</property>
+
+        <!--
+            This flag automatically updates the database schema to match the currently mapped
+            Hibernate objects (in this case, just Joke). It's good for initial prototyping and
+            development, but bad for production. Before release, you should settle on a schema
+            dump it to a DDL file, then review it and handle forward migrations manually.
+        -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <property name="show_sql">true</property>
+
+        <property name="javax.persistence.validation.mode">callback</property>
+
+        <mapping class="edu.macalester.jokes.model.Joke"></mapping>
+
+    </session-factory>
+
+</hibernate-configuration>
