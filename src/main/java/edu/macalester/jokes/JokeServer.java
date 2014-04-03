@@ -22,14 +22,6 @@ public class JokeServer {
         if(System.getenv("PORT") != null)
             setPort(Integer.parseInt(System.getenv("PORT")));
 
-        // This is an API-only server; all responses are JSON.
-        before(new Filter() {
-            @Override
-            public void handle(Request req, Response res) {
-                res.type("application/json");
-            }
-        });
-
         get(new ApiRoute("/jokes") {
             @Override
             public Object doHandle(Request req, Response res, Session session) {

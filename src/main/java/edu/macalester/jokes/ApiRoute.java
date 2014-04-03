@@ -38,6 +38,8 @@ public abstract class ApiRoute extends ResponseTransformerRoute {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try {
+            res.type("application/json");
+
             Object resBody = doHandle(req, res, session);
             tx.commit();
 
