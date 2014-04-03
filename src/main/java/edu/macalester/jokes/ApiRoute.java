@@ -41,13 +41,11 @@ public abstract class ApiRoute extends ResponseTransformerRoute {
             res.type("application/json");
 
             Object resBody = doHandle(req, res, session);
-            tx.commit();
 
+            tx.commit();
             return resBody;
 
         } catch(ConstraintViolationException e) {
-            tx.rollback();
-
             // HTTP codes in the 4xx range mean that the client submitted a bad request.
             // 400 is a good one for validation errors.
             res.status(400);
@@ -65,8 +63,6 @@ public abstract class ApiRoute extends ResponseTransformerRoute {
             return resBody;
 
         } catch(Exception e) {
-            tx.rollback();
-
             // HTTP codes in the 5xx range mean that something went wrong on the server,
             // and it's not necessarily the client's fault.
             res.status(500);
@@ -75,6 +71,9 @@ public abstract class ApiRoute extends ResponseTransformerRoute {
             resBody.put("success", false);
             resBody.put("error", e.getLocalizedMessage());
             return resBody;
+        } finally {
+            if(tx.isActive())
+                tx.rollback();
         }
     }
 
