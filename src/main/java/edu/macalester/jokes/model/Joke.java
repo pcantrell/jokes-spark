@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class Joke {
     @Id
     @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GenericGenerator(name="increment", strategy="increment")
     private Long id;
 
     @NotNull
