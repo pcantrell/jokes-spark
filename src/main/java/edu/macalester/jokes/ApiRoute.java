@@ -74,6 +74,7 @@ public abstract class ApiRoute extends ResponseTransformerRoute {
         } finally {
             if(tx.isActive())
                 tx.rollback();
+            session.close();
         }
     }
 
