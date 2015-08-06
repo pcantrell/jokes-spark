@@ -1,3 +1,8 @@
+---
+title: Cool page
+layout: post
+---
+
 This is:
 
 * Markdown, and
